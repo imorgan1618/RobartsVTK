@@ -79,7 +79,7 @@ FIND_PACKAGE(OpenMP REQUIRED)
 #-----------------------------------------------------------------------------
 # Look for a VTK build directory
 #-----------------------------------------------------------------------------
-FIND_PACKAGE(VTK 7.0 REQUIRED NO_MODULE)
+FIND_PACKAGE(VTK 7.1 REQUIRED NO_MODULE)
 
 MESSAGE(STATUS "Using VTK available at: ${VTK_DIR}")
 

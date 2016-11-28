@@ -32,4 +32,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   vtkIOCore 
   vtkCommonCore 
   vtkIOMINC 
+  vtkRenderingOpenVR
+  vtkRenderingGL2PSOpenGL2
   )

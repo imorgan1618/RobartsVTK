@@ -44,5 +44,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   vtkInteractionStyle
   vtkRenderingFreeType
   vtkRendering${VTK_RENDERING_BACKEND}
+  vtkRenderingOpenGL2
+  vtkRenderingOpenVR
+  vtkRenderingGL2PSOpenGL2
+  vtkIOLegacy
   )
 GENERATE_EXPORT_DIRECTIVE_FILE(${PROJECT_NAME})

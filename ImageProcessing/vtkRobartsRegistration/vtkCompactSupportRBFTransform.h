@@ -97,7 +97,7 @@ public:
 
   // Description:
   // Get the MTime.
-  unsigned long GetMTime();
+  vtkMTimeType GetMTime();
 
   // Description:
   // Make another transform of the same type.

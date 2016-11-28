@@ -44,4 +44,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   vtkCommonCore 
   vtkGUISupportQt
   vtksys
+  vtkRenderingOpenVR
+  vtkRenderingGL2PSOpenGL2
   )

@@ -43,4 +43,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   vtkIOImage
   vtkCommonCore
   vtkGUISupportQt
+  vtkIOGeometry
+  vtkImagingGeneral
+  vtkRenderingOpenVR
+  vtkRenderingGL2PSOpenGL2
   )

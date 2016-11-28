@@ -171,7 +171,7 @@ void vtkCompactSupportRBFTransform::SetTargetLandmarks(vtkPoints *target)
 }
 
 //------------------------------------------------------------------------
-unsigned long vtkCompactSupportRBFTransform::GetMTime()
+vtkMTimeType vtkCompactSupportRBFTransform::GetMTime()
 {
   unsigned long result = this->vtkWarpTransform::GetMTime();
   unsigned long mtime;
