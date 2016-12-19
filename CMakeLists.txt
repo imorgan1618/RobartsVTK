@@ -1,8 +1,6 @@
 PROJECT(RobartsVTK)
 
-#-----------------------------------------------------------------------------
 # CMake version requirements
-#-----------------------------------------------------------------------------
 CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
 cmake_policy(SET CMP0003 NEW)
 
@@ -20,9 +18,7 @@ ENDIF()
 INCLUDE(${CMAKE_SOURCE_DIR}/CMake/RobartsCommon.cmake)
 LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 
-#-----------------------------------------------------------------------------
 # Options
-#-----------------------------------------------------------------------------
 OPTION(RobartsVTK_USE_QT "Build with QT enabled" OFF)
 OPTION(RobartsVTK_USE_ITK "Use ITK in RobartsITK" OFF)
 OPTION(RobartsVTK_USE_PLUS "Use the PLUSToolkit for data collection." OFF)
@@ -39,20 +35,12 @@ OPTION(RobartsVTK_USE_OpenCL "Build the OpenCL modules" OFF)
 OPTION(RobartsVTK_USE_VISUALIZATION  "Build the visualization modules" ON)
 OPTION(RobartsVTK_BUILD_APPS "Build RobartsVTK applications." OFF)
 OPTION(BUILD_SHARED_LIBS "Build shared libraries." ON)
+OPTION(BUILD_TESTING "Build testing." OFF)
 OPTION(BUILD_DOCUMENTATION "Build Documentation" OFF)
 
-#-----------------------------------------------------------------------------
-# Compiler options
-#-----------------------------------------------------------------------------
 IF(MSVC)
   add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/MP>)
 ENDIF()
-
-#-----------------------------------------------------------------------------
-# Testing
-#-----------------------------------------------------------------------------
-OPTION(BUILD_TESTING "Build test programs" ON)
-INCLUDE(CTest)
 
 #-----------------------------------------------------------------------------
 # RobartsVTK executable output path 
@@ -76,6 +64,8 @@ MARK_AS_ADVANCED(CMAKE_RUNTIME_OUTPUT_DIRECTORY
   CMAKE_ARCHIVE_OUTPUT_DIRECTORY
   )
 
+SET(RobartsVTK_DATA_DIR ${CMAKE_SOURCE_DIR}/Data CACHE PATH "Location of the data directory.")
+
 #-----------------------------------------------------------------------------
 # Add configure file to included directories
 #-----------------------------------------------------------------------------
@@ -89,7 +79,7 @@ FIND_PACKAGE(OpenMP REQUIRED)
 #-----------------------------------------------------------------------------
 # Look for a VTK build directory
 #-----------------------------------------------------------------------------
-FIND_PACKAGE(VTK 7 REQUIRED NO_MODULE)
+FIND_PACKAGE(VTK 7.1 REQUIRED NO_MODULE)
 
 MESSAGE(STATUS "Using VTK available at: ${VTK_DIR}")
 
@@ -194,6 +184,7 @@ SET(RobartsVTK_Export_Template ${CMAKE_CURRENT_SOURCE_DIR}/RobartsVTKExport.h.in
 #-----------------------------------------------------------------------------
 # PLUS configuration (optional)
 #-----------------------------------------------------------------------------
+OPTION(RobartsVTK_USE_PLUS "Use the PLUSToolkit for data collection." OFF)
 IF(RobartsVTK_USE_PLUS)
     # PlusLib has been built already
   FIND_PACKAGE(PlusLib REQUIRED NO_MODULE)
@@ -449,12 +440,12 @@ IF(RobartsVTK_BUILD_APPS)
       IF(RobartsVTK_USE_CUDA_VISUALIZATION)
         ADD_SUBDIRECTORY(Applications/StreamingUSVis)
         set_target_properties(StreamingUSVis PROPERTIES FOLDER Applications)
-        ADD_SUBDIRECTORY(Applications/Cuda1DTFVolumeRendering)
+		ADD_SUBDIRECTORY(Applications/Cuda1DTFVolumeRendering)
         set_target_properties(Cuda1DTFVolumeRendering PROPERTIES FOLDER Applications)
-        ADD_SUBDIRECTORY(Applications/CLReconstruction)
-        set_target_properties(CLReconstruction PROPERTIES FOLDER Applications)
-        ADD_SUBDIRECTORY(Applications/CLReconstructionWithVisualization)
-        set_target_properties(CLReconstructionWithVisualization PROPERTIES FOLDER Applications)
+		ADD_SUBDIRECTORY(Applications/CLReconstruction)
+		set_target_properties(CLReconstruction PROPERTIES FOLDER Applications)
+		ADD_SUBDIRECTORY(Applications/CLReconstructionWithVisualization)
+		set_target_properties(CLReconstructionWithVisualization PROPERTIES FOLDER Applications)
       ENDIF()
       ADD_SUBDIRECTORY(Applications/KeyholeRendering)
       set_target_properties(KeyholeRendering PROPERTIES FOLDER Applications)
@@ -476,9 +467,7 @@ IF(RobartsVTK_BUILD_APPS)
     MESSAGE(STATUS "Using PlusApp available at: ${PlusApp_DIR}")
 
     ADD_SUBDIRECTORY(Applications/CameraCalibration)
-    ADD_SUBDIRECTORY(Applications/PLUSOpenCVExample)
     set_target_properties(CameraCalibration PROPERTIES FOLDER Applications)
-    set_target_properties(PLUSOpenCVExample PROPERTIES FOLDER Applications)
   ENDIF()
   
   IF(OpenCV_FOUND)
@@ -503,17 +492,6 @@ CONFIGURE_FILE(
   ${CMAKE_CURRENT_SOURCE_DIR}/RobartsVTKConfigure.h.in
   ${CMAKE_CURRENT_BINARY_DIR}/RobartsVTKConfigure.h
   )
-IF(WIN32)
-  configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/BuildAndTest.bat.in
-    ${CMAKE_CURRENT_BINARY_DIR}/BuildAndTest.bat
-    )
-ELSE()
-  configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/BuildAndTest.sh.in
-    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/BuildAndTest.sh
-    )
-ENDIF()
 
 #-----------------------------------------------------------------------------
 # Exports

@@ -36,7 +36,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   vtkCudaVisualization 
   vtkCudaImageAnalytics 
   vtkCudaCommon 
-  vtkRenderingGL2PS${VTK_RENDERING_BACKEND}
   vtkRenderingVolume 
   vtkRenderingCore 
   vtkFiltersCore 
@@ -45,4 +44,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   vtkCommonCore 
   vtkGUISupportQt
   vtksys
+  vtkRenderingOpenVR
+  vtkRenderingGL2PSOpenGL2
   )
